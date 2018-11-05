@@ -73,7 +73,7 @@ int naif_interne_rapide(PatFinder patfinder) {
             }
         }  
     }
-    return occurences;
+    return --occurences;
 }
 
 int main (int argc, char *argv[]) {
@@ -86,19 +86,29 @@ int main (int argc, char *argv[]) {
     char* w = get_content(argv[1]);
     size_t wlen = strlen(w);
     size_t patlen = strlen(pat);
-    PatFinder patfind = (PatFinder) malloc(sizeof(char)* strlen(w)  +1 *
-                                           sizeof(char)* strlen(pat)+1 *
-                                           sizeof(pat) *
-                                           sizeof(patlen));
+    PatFinder patfind = (PatFinder) malloc(sizeof(struct pattern_finder));
+    
+    patfind->w = malloc(sizeof(char)* strlen(w)+1);
+    patfind->pat=malloc(sizeof(char)* strlen(pat)+1);
+    
+    if(patfind->w==NULL){
+		perror("malloc de w échoué");
+		exit(EXIT_FAILURE);
+	}else if(patfind->pat==NULL){
+		perror("malloc de pat échoué");
+		exit(EXIT_FAILURE);
+	}
+    
     patfind->wlen = wlen;
-    memcpy(patfind->w,w,wlen);                                       
+    patfind->patlen = patlen;
+    
+    strcpy(patfind->w,w);                                  
     if(patfind->w==NULL){
 		perror("copie de w échouée");
 		exit(EXIT_FAILURE);
 	}
 	
-	patfind->patlen = patlen;
-    memcpy(patfind->pat,pat,patlen);
+    strcpy(patfind->pat,pat);
     if(patfind->pat==NULL){
 		perror("copie de pat échouée");
 		exit(EXIT_FAILURE);

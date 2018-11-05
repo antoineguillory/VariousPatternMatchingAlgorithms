@@ -67,12 +67,9 @@ int naif_interne_rapide_sentinelle(PatFinder patfinder){
     if(realloc(patfinder->w,new_length+2)==NULL){
         return -1;
     }
-
-    puts("realloc passé \n");
     if(strncat(patfinder->w, patfinder->pat, patfinder->patlen)==NULL){
         return -1;
     }
-    puts("strncat passé \n");
     int occurences = 0;
     const char first_char = patfinder->pat[FIRST_CAR];
     size_t k=0;
