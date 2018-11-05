@@ -10,9 +10,9 @@
 #define FIRST_CAR 0
 
 struct pattern_finder {
-	char w[512];
+	char* w;
 	size_t wlen;
-	char pat[512];
+	char* pat;
 	size_t patlen;
 }; 
 typedef struct pattern_finder* PatFinder;

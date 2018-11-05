@@ -90,10 +90,19 @@ int main (int argc, char *argv[]) {
                                            sizeof(char)* strlen(pat)+1 *
                                            sizeof(pat) *
                                            sizeof(patlen));
-    memcpy(patfind->w,w,wlen);
     patfind->wlen = wlen;
+    memcpy(patfind->w,w,wlen);                                       
+    if(patfind->w==NULL){
+		perror("copie de w échouée");
+		exit(EXIT_FAILURE);
+	}
+	
+	patfind->patlen = patlen;
     memcpy(patfind->pat,pat,patlen);
-    patfind->patlen = patlen;
+    if(patfind->pat==NULL){
+		perror("copie de pat échouée");
+		exit(EXIT_FAILURE);
+	}
     
     printf("Nombre d'occurences : %d\n", naif_interne_rapide(patfind));
     free(w);
