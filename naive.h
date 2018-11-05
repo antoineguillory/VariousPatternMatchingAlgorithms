@@ -25,4 +25,10 @@ int naif_interne_rapide(PatFinder patfinder);
 
 int naif_interne_rapide_sentinelle(PatFinder patfinder);
 
+int naif_strncmp(PatFinder patfinder);
+
+int naif_strncmp_rapide(PatFinder patfinder);
+
+int naif_strncmp_rapide_sentinelle(PatFinder patfinder);
+
 #endif
