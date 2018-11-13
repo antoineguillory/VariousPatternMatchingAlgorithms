@@ -19,7 +19,7 @@ typedef struct pattern_finder* PatFinder;
 
 int structural_integrity_checker(PatFinder patfinder);
 
-int morris_pratt(PatFinder patfinder);
+int morris_pratt(PatFinder patfinder, int* bon_pref);
 
 int kmp(PatFinder patfinder);
 

@@ -57,8 +57,17 @@ char* get_content(char* filename){
     return w;
 }
 
-int morris_pratt(PatFinder patfinder) {
-    return 0; // TODO !!!
+int morris_pratt(PatFinder patfinder, int * bonpref) {
+    int m=0;
+    int i=0;
+    while(patfinder->w[m+i]!='\0' && patfinder->pat[i] != '\0'){
+        if(patfinder->w[m+i]==patfinder->pat[i]) {
+            ++i;
+        } else {
+            
+        }
+    }
+    return 0; //TODO !!!!!!!!!!
 }
 
 int main (int argc, char *argv[]) {
