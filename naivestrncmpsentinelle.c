@@ -57,23 +57,31 @@ char* get_content(char* filename){
     return w;
 }
 
-int naif_strncmp_rapide(PatFinder patfinder) {
+int naif_strncmp_rapide_sentinelle(PatFinder patfinder) {
 	if(structural_integrity_checker(patfinder)==-1){
 		return -1;
 	}
+	if(strncat(patfinder->w, patfinder->pat, patfinder->patlen)==NULL){
+        return -1;
+    }
 	int occurences = 0;
 	const char first_char = patfinder->pat[FIRST_CAR];
-	for(size_t k=0; k<patfinder->wlen; ++k){
+    size_t k=0;
+	while(1){
 		if(patfinder->w[k]==first_char){
 			if(strncmp(
 				(void *)patfinder->pat,    /*Pattern a trouver*/
 				(patfinder->w)+k,          /*Decale le pointeur de k positions*/
 				 patfinder->patlen)==0){   /*On compare une longueur = |pat|*/
 				++occurences;
+				if( (k+1) > patfinder->wlen ){
+                    return occurences-1;
+                }
 			}
 		}
+		++k;
 	}
-	return occurences;
+	return 0;
 }
 
 int main (int argc, char *argv[]) {
@@ -112,7 +120,7 @@ int main (int argc, char *argv[]) {
 		perror("copie de pat échouée");
 		exit(EXIT_FAILURE);
 	}
-	printf("Nombre d'occurences : %d\n", naif_strncmp_rapide(patfind));
+	printf("Nombre d'occurences : %d\n", naif_strncmp_rapide_sentinelle(patfind));
 	free(w);
 	free(patfind);
 	return 0;
