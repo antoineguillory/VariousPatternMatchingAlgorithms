@@ -4,9 +4,9 @@ cd naive;
 make;
 cd ..;
 
-time ./naive/naive dictionnaire.txt;
-time ./naive/naiverapide dictionnaire.txt;
-time ./naive/naivesentinelle dictionnaire.txt;
-time ./naive/naivestrncmp dictionnaire.txt;
-time ./naive/naivestrncmprapide dictionnaire.txt;
-time ./naive/naivestrncmpsentinelle dictionnaire.txt;
+time ./naive/naive ./naive/dictionnaire.txt;
+time ./naive/naiverapide ./naive/dictionnaire.txt;
+time ./naive/naivesentinelle ./naive/dictionnaire.txt;
+time ./naive/naivestrncmp ./naive/dictionnaire.txt;
+time ./naive/naivestrncmprapide ./naive/dictionnaire.txt;
+time ./naive/naivestrncmpsentinelle ./naive/dictionnaire.txt;
