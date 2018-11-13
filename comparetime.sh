@@ -1,8 +1,12 @@
 #!/bin/bash
 
-time ./naive dictionnaire.txt;
-time ./naiverapide dictionnaire.txt;
-time ./naivesentinelle dictionnaire.txt;
-time ./naivestrncmp dictionnaire.txt;
-time ./naivestrncmprapide dictionnaire.txt;
-time ./naivestrncmpsentinelle dictionnaire.txt;
+cd naive;
+make;
+cd ..;
+
+time ./naive/naive dictionnaire.txt;
+time ./naive/naiverapide dictionnaire.txt;
+time ./naive/naivesentinelle dictionnaire.txt;
+time ./naive/naivestrncmp dictionnaire.txt;
+time ./naive/naivestrncmprapide dictionnaire.txt;
+time ./naive/naivestrncmpsentinelle dictionnaire.txt;
