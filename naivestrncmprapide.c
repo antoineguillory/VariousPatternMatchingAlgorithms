@@ -11,27 +11,27 @@
 #include "naive.h"
 
 int structural_integrity_checker(PatFinder patfinder){
-    if(strlen(patfinder->w)==0) {
-        perror(WORD_IS_NULL);
-        return -1;
-    } else if (patfinder->wlen==0) {
-        perror(WORDLEN_IS_NULL);
-        return -1;
-    } else if (strlen(patfinder->pat)==0){
-        perror(PAT_IS_NULL);
-        return -1;
-    } else if (patfinder->patlen==0){
-        perror(PATLEN_IS_NULL);
-        return -1;
-    } else if (patfinder->wlen<patfinder->patlen){
-        perror(UNCOHERENT_LENGTHS);
-        return -1;
-    }
-    return 0;
+	if(strlen(patfinder->w)==0) {
+		perror(WORD_IS_NULL);
+		return -1;
+	} else if (patfinder->wlen==0) {
+		perror(WORDLEN_IS_NULL);
+		return -1;
+	} else if (strlen(patfinder->pat)==0){
+		perror(PAT_IS_NULL);
+		return -1;
+	} else if (patfinder->patlen==0){
+		perror(PATLEN_IS_NULL);
+		return -1;
+	} else if (patfinder->wlen<patfinder->patlen){
+		perror(UNCOHERENT_LENGTHS);
+		return -1;
+	}
+	return 0;
 }
 
 char* get_content(char* filename){
-    int fd = 0;
+	int fd = 0;
 
     struct stat st;
     stat(filename, &st);
@@ -57,31 +57,30 @@ char* get_content(char* filename){
     return w;
 }
 
-int naif_interne_rapide(PatFinder patfinder) {
-    if(structural_integrity_checker(patfinder)==-1){
-        return -1;
-    }
-    int occurences = 0;
-    const char first_char = patfinder->pat[FIRST_CAR];
-    for(size_t k=0; k<patfinder->wlen; ++k){
-        if(patfinder->w[k]==first_char){
-            if(memcmp(
-                (void *)patfinder->pat,    /*Pattern a trouver*/
-                (patfinder->w)+k,          /*Decale le pointeur de k positions*/
-                 patfinder->patlen)==0){   /*On compare une longueur = |pat|*/
-                ++occurences;
-            }
-        }  
-    }
-    return occurences;
+int naif_strncmprapide(PatFinder patfinder) {
+	if(structural_integrity_checker(patfinder)==-1){
+		return -1;
+	}
+	int occurences = 0;
+	const char first_char = patfinder->pat[FIRST_CAR];
+	for(size_t k=0; k<patfinder->wlen; ++k){
+		if(patfinder->w[k]==first_char){
+			if(strncmp(
+				(void *)patfinder->pat,    /*Pattern a trouver*/
+				(patfinder->w)+k,          /*Decale le pointeur de k positions*/
+				 patfinder->patlen)==0){   /*On compare une longueur = |pat|*/
+				++occurences;
+			}
+		}
+	}
+	return occurences;
 }
 
 int main (int argc, char *argv[]) {
-    if(argc<2){
+	if(argc<2){
         perror("pas assez d'arguments");
         exit(EXIT_FAILURE);
     }
-
     const char * pat = "comment";
     char* w = get_content(argv[1]);
     size_t wlen = strlen(w);
@@ -113,10 +112,8 @@ int main (int argc, char *argv[]) {
 		perror("copie de pat échouée");
 		exit(EXIT_FAILURE);
 	}
-    
-    printf("Nombre d'occurences : %d\n", naif_interne_rapide(patfind));
-    free(w);
-    free(patfind);
-    return 0;
+	printf("Nombre d'occurences : %d\n", naif_strncmprapide(patfind));
+	free(w);
+	free(patfind);
+	return 0;
 }
-
